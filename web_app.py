@@ -32,6 +32,7 @@ APP.secret_key = os.environ.get('SECRET_KEY')
 def login_required(f):
     @wraps(f)
     def login_check(*args, **kwargs):
+        print("happening")
         if not session.get('username'):
             return redirect(url_for('login', next=request.path))
         return f(*args, **kwargs)
@@ -75,8 +76,9 @@ def download():
     else:
         return "Contact does not exist"
 
-@login_required
+
 @APP.route('/edit', methods=['GET', 'POST'])
+@login_required
 def edit():
     editing_contact = CONTACTS.find_one({'email_address': request.args.get('email')})
     if editing_contact:
@@ -91,8 +93,8 @@ def edit():
         return redirect(url_for('edit', email=contact_form.get('email_address')))
     return render_template('edit_contact.html', contact_info=editing_contact, qr_code=qr_code)
 
-@login_required
 @APP.route('/contacts')
+@login_required
 def view():
     all_contacts = list(CONTACTS.find())
     return "all"
@@ -110,8 +112,8 @@ def login(username=""):
                 return redirect(request.args.get('next') or url_for('index'))
     return render_template('login.html', username=username)
 
-@login_required
 @APP.route('/svg')
+@login_required
 def svg_card_creator():
     download_id = request.args.get('id')
     if download_id and ObjectId.is_valid(download_id):

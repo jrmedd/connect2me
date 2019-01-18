@@ -136,7 +136,7 @@ def svg_card_creator():
 
 
 def create_qr_code(download_url, tenant_id):
-    qr_code = qrcodegen.QrCode.encode_text("%s/?id=%s" % (download_url, tenant_id), qrcodegen.QrCode.Ecc.MEDIUM)
+    qr_code = qrcodegen.QrCode.encode_text("%s?id=%s" % (download_url, tenant_id), qrcodegen.QrCode.Ecc.MEDIUM)
     return qr_code.to_svg_str(0)
 
 

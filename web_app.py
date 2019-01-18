@@ -14,6 +14,10 @@ import qrcodegen
 import os
 
 from passlib.hash import pbkdf2_sha256
+import logging
+
+logging.basicConfig(filename='errors.log',level=logging.DEBUG)
+
 
 MONGO_URL = os.environ.get('MONGO_URL')
 
@@ -32,7 +36,6 @@ APP.secret_key = os.environ.get('SECRET_KEY')
 def login_required(f):
     @wraps(f)
     def login_check(*args, **kwargs):
-        print("happening")
         if not session.get('username'):
             return redirect(url_for('login', next=request.path))
         return f(*args, **kwargs)

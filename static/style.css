@@ -1,0 +1,17 @@
+#contact-info {
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+form {
+    width: 100%;
+}
+input {
+    width: 100%;
+}
+svg {
+    width: 100%;
+}

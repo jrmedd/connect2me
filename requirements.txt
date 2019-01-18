@@ -1,0 +1,6 @@
+qrcodegen==1.4.0
+passlib==1.7.1
+vobject==0.9.6.1
+Flask==1.0.2
+pymongo==3.4.0
+gunicorn==19.7.1

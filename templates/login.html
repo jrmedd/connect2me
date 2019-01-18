@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="contact-info">
+        <form name="contact-info" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required="required" />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required="required" />
+            <input type="submit" value="Login" />
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+</body>
+</html>

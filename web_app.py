@@ -1,5 +1,4 @@
 from flask import Flask, flash, url_for, render_template, request, redirect, make_response, Response, jsonify, session
-from flask_socketio import SocketIO
 from bson import ObjectId
 from functools import wraps
 import datetime

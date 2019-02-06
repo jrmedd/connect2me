@@ -41,12 +41,17 @@ def login_required(f):
         return f(*args, **kwargs)
     return login_check
 
-def create_card(first_name, last_name, email_address, phone_number=None):
+def create_card(first_name, last_name, role, company_name, email_address, phone_number=None):
     contact = vobject.vCard()
     contact.add('n')
     contact.n.value = vobject.vcard.Name(family=last_name, given=first_name)
     contact.add('fn') 
     contact.fn.value = "%s %s" % (first_name, last_name)
+    contact.add('title')
+    contact.title.value = role
+    # Sort out role format
+    contact.add('org')
+    contact.org.value = company_name
     contact.add('email')
     contact.email.value = email_address
     contact.email.type_param = 'INTERNET'
@@ -70,9 +75,11 @@ def download():
     if found_contact:
         contact_first_name = found_contact.get('first_name')
         contact_last_name = found_contact.get('last_name')
+        contact_role = found_contact.get('role')
+        contact_company_name = found_contact.get('company_name')
         contact_email = found_contact.get('email_address')
         contact_phone = found_contact.get('phone_number')
-        card_download = create_card(contact_first_name, contact_last_name, contact_email, contact_phone)
+        card_download = create_card(contact_first_name, contact_last_name, contact_role, contact_company_name, contact_email, contact_phone)
         print(request.remote_addr)
         print(request.user_agent)
         return Response(card_download.serialize(), mimetype="text/x-vcard", headers={"Content-Disposition": "attachment;filename=%s_%s.vcf" % (contact_first_name, contact_last_name)})
@@ -124,6 +131,8 @@ def svg_card_creator():
     else:
         return "No contact"
     full_name = "%s %s" % (found_contact.get('first_name'), found_contact.get('last_name'))
+    role = found_contact.get('role')
+    company_name = found_contact.get('company_name')
     email_address = found_contact.get('email_address')
     phone_number = found_contact.get('phone_number')
     qr_code = create_qr_code(url_for('download', _external=True), download_id)
@@ -132,7 +141,7 @@ def svg_card_creator():
     qr_code = qr_code.replace('<path', '<path transform="scale(2)"')
     with open('static/template.svg', 'r+') as f:
         svg_file = Template(f.read())
-    return Response(svg_file.safe_substitute(name=full_name, email=email_address, telephone=phone_number, qr=qr_code), mimetype='image/svg+xml', headers={"Content-Disposition": "attachment;filename=%s.svg" % (full_name)})
+    return Response(svg_file.safe_substitute(name=full_name, email=email_address, role=role, company_name=company_name, telephone=phone_number, qr=qr_code), mimetype='image/svg+xml', headers={"Content-Disposition": "attachment;filename=%s.svg" % (full_name)})
 
 
 def create_qr_code(download_url, tenant_id):

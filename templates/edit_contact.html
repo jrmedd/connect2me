@@ -11,14 +11,24 @@
     <div id="contact-info">
         <form name="contact-info" method="POST">
             <input type="hidden" id="object-id" name="_id" />
+
             <label for="first-name">First name</label>
             <input type="text" id="first-name" name="first_name" required="required" />
+
             <label for="last-name">Last name</label>
             <input type="text" id="last-name" name="last_name" required="required" />
+
+            <label for="role">Role</label>
+            <input type="text" id="role" name="role" required="required" />
+
+            <label for="company-name">Company name</label>
+            <input type="text" id="company-name" name="company_name" required="required" />
+
             <label for="email_address">Email address</label>
             <input type="email" id="email-address" name="email_address" required="required" />
+            
             <label for="phone-number">Phone number</label>
-            <input type="number" id="phone-number" name="phone_number" />
+            <input type="tel" id="phone-number" name="phone_number" />
             <input type="submit" value="Edit contact">
         </form>
         {% if qr_code != None %}
@@ -35,6 +45,8 @@
             $("#object-id").val(contactInfo._id);
             $('#first-name').val(contactInfo.first_name);
             $('#last-name').val(contactInfo.last_name);
+            $('#role').val(contactInfo.role);
+            $('#company-name').val(contactInfo.company_name);
             $('#email-address').val(contactInfo.email_address);
             $('#phone-number').val(contactInfo.phone_number);
         }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>The Landing – Contacts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div id="top-nav">
+        <h1>Edit/add contacts</h1>
+    </div>
+    <div id="contact-list-wrapper">
+        <ul id="contact-list">
+            {% for contact in contact_list %}
+            <li><a title="Edit details for {{ contact.get('first_name') }} {{ contact.get('last_name') }} " href="/edit?email={{ contact.get('email_address') }}">{{ contact.get('first_name') }} {{ contact.get('last_name') }}, {{ contact.get('company_name') }}</a></li>
+            {% endfor %}
+        </ul>
+        <a id="add-contact" title="Add new contact" href="/edit"><em>Add new</em></a>
+    </div>
+</body>
+</html>

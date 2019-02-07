@@ -16,8 +16,7 @@ import os
 from passlib.hash import pbkdf2_sha256
 import logging
 
-logging.basicConfig(filename='errors.log',level=logging.DEBUG)
-
+#logging.basicConfig(filename='errors.log',level=logging.DEBUG)
 
 MONGO_URL = os.environ.get('MONGO_URL')
 
@@ -62,8 +61,10 @@ def create_card(first_name, last_name, role, company_name, email_address, phone_
     return contact
 
 @APP.route('/')
+@login_required
 def index():
-    return request.url
+    all_contacts = list(CONTACTS.find({},{'_id':0}).sort('last_name', 1))
+    return render_template('index.html', contact_list=all_contacts)
 
 @APP.route('/download')
 def download():
@@ -102,12 +103,6 @@ def edit():
         CONTACTS.replace_one({'_id':ObjectId(contact_form.pop('_id') or None)}, contact_form, upsert=True)
         return redirect(url_for('edit', email=contact_form.get('email_address')))
     return render_template('edit_contact.html', contact_info=editing_contact, qr_code=qr_code)
-
-@APP.route('/contacts')
-@login_required
-def view():
-    all_contacts = list(CONTACTS.find())
-    return "all"
 
 @APP.route('/login', methods=['GET', 'POST'])
 def login(username=""):

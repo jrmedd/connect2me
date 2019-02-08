@@ -63,7 +63,9 @@ def create_card(first_name, last_name, role, company_name, email_address, phone_
 @APP.route('/')
 @login_required
 def index():
-    all_contacts = list(CONTACTS.find({},{'_id':0}).sort('last_name', 1))
+    all_contacts = list(CONTACTS.find().sort('last_name', 1))
+    for contact in all_contacts:
+        contact.update({'_id':str(contact.get('_id'))})
     return render_template('index.html', contact_list=all_contacts)
 
 @APP.route('/download')
@@ -87,6 +89,11 @@ def download():
     else:
         return "Contact does not exist"
 
+@APP.route('/remove/<contact_id>', methods=['DELETE'])
+@login_required
+def remove(contact_id):
+    CONTACTS.delete_one({'_id':ObjectId(contact_id)})
+    return jsonify(deleted=contact_id)
 
 @APP.route('/edit', methods=['GET', 'POST'])
 @login_required

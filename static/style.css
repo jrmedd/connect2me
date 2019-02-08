@@ -11,6 +11,8 @@ font-family: 'Muli', sans-serif;
   align-items: center;
   border-bottom: 1px solid #dddddd;
   margin-bottom: 1em;
+  padding-left: .5em;
+  padding-right: .5em;
 }
 
 #contact-info {
@@ -27,6 +29,7 @@ form {
 input {
     width: 100%;
     margin-bottom: 1em;
+    font-size: 1em;
 }
 svg {
     margin-top: 2em;
@@ -36,6 +39,11 @@ svg {
 a {
     font-weight: bold;
     text-decoration: none;
+    color: #5d5d5d;
+}
+
+a:hover {
+    color: #2776C1;
 }
 
 #contact-list {
@@ -46,6 +54,39 @@ a {
     list-style-type: none;
     border-bottom: 1px solid #dddddd;
     margin-bottom: 2em;
+    padding-bottom: 1em;
+}
+
+button, input[type="submit"] {
+    font-size: 1em;
+    line-height: 1em;
+    vertical-align: middle;
+    padding: .375em .75em;
+    border-radius: .25em;
+    cursor: pointer;
+}
+
+.delete-contact {
+    float: right;
+    color: #ffffff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.delete-contact:hover {
+    background-color: #f0616f;
+}
+
+input[type="submit"] {
+    color: #ffffff;
+    background-color: #64c52b;
+    border-color: #64c52b;
+}
+
+input[type="submit"]:hover {
+    color: #ffffff;
+    background-color: #95e766;
+    border-color: #95e766;
 }
 
 #contact-list-wrapper {

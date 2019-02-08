@@ -7,6 +7,8 @@ from pymongo import MongoClient
 
 import datetime
 
+import cairosvg
+
 import vobject
 
 import qrcodegen
@@ -143,7 +145,10 @@ def svg_card_creator():
     qr_code = qr_code.replace('<path', '<path transform="scale(2)"')
     with open('static/template.svg', 'r+') as f:
         svg_file = Template(f.read())
-    return Response(svg_file.safe_substitute(name=full_name, email=email_address, role=role, company_name=company_name, telephone=phone_number, qr=qr_code), mimetype='image/svg+xml', headers={"Content-Disposition": "attachment;filename=%s.svg" % (full_name)})
+    formatted_svg = svg_file.safe_substitute(name=full_name, email=email_address, role=role, company_name=company_name, telephone=phone_number, qr=qr_code)
+    formatted_pdf = cairosvg.svg2pdf(bytestring=formatted_svg.encode('utf-8'), scale=1.3333)
+    return Response(formatted_pdf, mimetype='application/pdf', headers={"Content-Disposition": "attachment;filename=%s.pdf" % (full_name)})
+    #return Response(svg_file.safe_substitute(name=full_name, email=email_address, role=role, company_name=company_name, telephone=phone_number, qr=qr_code), mimetype='image/svg+xml', headers={"Content-Disposition": "attachment;filename=%s.svg" % (full_name)})
 
 
 def create_qr_code(download_url, tenant_id):

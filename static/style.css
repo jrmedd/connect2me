@@ -30,6 +30,8 @@ input {
     width: 100%;
     margin-bottom: 1em;
     font-size: 1em;
+    border: 1px solid #5d5d5d;
+    border-radius: .25em;
 }
 svg {
     margin-top: 2em;
@@ -46,8 +48,18 @@ a:hover {
     color: #2776C1;
 }
 
-#contact-list {
+#contact-list-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
     width: 95%;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+#contact-list {
+    width: 100%;
+    padding: 0;
 }
 
 #contact-list li {
@@ -77,23 +89,15 @@ button, input[type="submit"] {
     background-color: #f0616f;
 }
 
-input[type="submit"] {
+#save-changes {
     color: #ffffff;
     background-color: #64c52b;
     border-color: #64c52b;
 }
 
-input[type="submit"]:hover {
+#save-changes:hover {
     color: #ffffff;
     background-color: #95e766;
     border-color: #95e766;
 }
 
-#contact-list-wrapper {
-    display: flex;
-    justify-content: flex-start;
-    align-content: center;
-    width: 95%;
-    flex-wrap: wrap;
-    margin: 0 auto;
-}

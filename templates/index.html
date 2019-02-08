@@ -19,7 +19,7 @@
         <ul id="contact-list">
             {% for contact in contact_list %}
             <li><a title="Edit details for {{ contact.get('first_name') }} {{ contact.get('last_name') }} " href="/edit?email={{ contact.get('email_address') }}">
-                <span class="contact-name">{{ contact.get('first_name') }} {{ contact.get('last_name') }}</span>, <span class="contact-company">{{ contact.get('company_name') }}</span>
+                <span aria-label="Contact name" class="contact-name">{{ contact.get('first_name') }} {{ contact.get('last_name') }}</span>, <span aria-label="Contact's company name" class="contact-company">{{ contact.get('company_name') }}</span>
             </a> 
             <button title="Delete {{ contact.get('first_name') }} {{ contact.get('last_name') }}'s details" data-contact-id="{{ contact.get('_id') }}" class="delete-contact">Delete</button></li>
             {% endfor %}

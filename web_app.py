@@ -1,11 +1,11 @@
-from flask import Flask, flash, url_for, render_template, request, redirect, make_response, Response, jsonify, session
-from bson import ObjectId
+import datetime
 from functools import wraps
-import datetime
+import os
 from string import Template
-from pymongo import MongoClient
 
-import datetime
+from flask import Flask, url_for, render_template, request, redirect, Response, jsonify, session
+from bson import ObjectId
+from pymongo import MongoClient
 
 import cairosvg
 
@@ -13,12 +13,8 @@ import vobject
 
 import qrcodegen
 
-import os
-
 from passlib.hash import pbkdf2_sha256
-import logging
 
-#logging.basicConfig(filename='errors.log',level=logging.DEBUG)
 
 MONGO_URL = os.environ.get('MONGO_URL')
 
@@ -32,8 +28,6 @@ APP = Flask(__name__)
 
 APP.secret_key = os.environ.get('SECRET_KEY')
 
-
-
 def login_required(f):
     @wraps(f)
     def login_check(*args, **kwargs):
@@ -46,7 +40,7 @@ def create_card(first_name, last_name, role, company_name, email_address, phone_
     contact = vobject.vCard()
     contact.add('n')
     contact.n.value = vobject.vcard.Name(family=last_name, given=first_name)
-    contact.add('fn') 
+    contact.add('fn')
     contact.fn.value = "%s %s" % (first_name, last_name)
     contact.add('title')
     contact.title.value = role
@@ -148,8 +142,6 @@ def svg_card_creator():
     formatted_svg = svg_file.safe_substitute(name=full_name, email=email_address, role=role, company_name=company_name, telephone=phone_number, qr=qr_code)
     formatted_pdf = cairosvg.svg2pdf(bytestring=formatted_svg.encode('utf-8'), scale=1.3333)
     return Response(formatted_pdf, mimetype='application/pdf', headers={"Content-Disposition": "attachment;filename=%s.pdf" % (full_name)})
-    #return Response(svg_file.safe_substitute(name=full_name, email=email_address, role=role, company_name=company_name, telephone=phone_number, qr=qr_code), mimetype='image/svg+xml', headers={"Content-Disposition": "attachment;filename=%s.svg" % (full_name)})
-
 
 def create_qr_code(download_url, tenant_id):
     qr_code = qrcodegen.QrCode.encode_text("%s?id=%s" % (download_url, tenant_id), qrcodegen.QrCode.Ecc.MEDIUM)

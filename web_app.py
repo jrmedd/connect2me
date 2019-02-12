@@ -79,8 +79,12 @@ def download():
         contact_email = found_contact.get('email_address')
         contact_phone = found_contact.get('phone_number')
         card_download = create_card(contact_first_name, contact_last_name, contact_role, contact_company_name, contact_email, contact_phone)
-        print(request.remote_addr)
-        print(request.user_agent)
+        interaction = {'downloaded': download_id}
+        interaction.update({'ip':request.remote_addr})
+        interaction.update({'platform':request.user_agent.platform})
+        interaction.update({'browser':request.user_agent.browser})
+        interaction.update({'timestamp':datetime.datetime.now()})
+        INTERACTIONS.insert_one(interaction)
         return Response(card_download.serialize(), mimetype="text/x-vcard", headers={"Content-Disposition": "attachment;filename=%s_%s.vcf" % (contact_first_name, contact_last_name)})
     else:
         return "Contact does not exist"

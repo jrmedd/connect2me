@@ -80,7 +80,7 @@ def download():
         contact_phone = found_contact.get('phone_number')
         card_download = create_card(contact_first_name, contact_last_name, contact_role, contact_company_name, contact_email, contact_phone)
         interaction = {'downloaded': download_id}
-        interaction.update({'ip': request.environ.get('HTTP_X_REAL_IP', request.remote_addr)})
+        interaction.update({'ip': request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)})
         interaction.update({'platform':request.user_agent.platform})
         interaction.update({'browser':request.user_agent.browser})
         interaction.update({'timestamp':datetime.datetime.now()})

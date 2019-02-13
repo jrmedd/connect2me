@@ -6,7 +6,7 @@
     <title>Connect2Me – Contact List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='style.css') }}?3" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='style.css') }}?4" />
 </head>
 <body>
     <div id="top-nav">
@@ -15,8 +15,15 @@
     <div id="contact-list-wrapper">
         {% if contact_list %}
             <p>Click on a contact's name to edit their details.</p>
+        <div class="input-group">
+            <label for="search"><em>Filter by name or company:</em></label><input name="search" class="search" />
+        </div>
         {% endif %}
-        <ul id="contact-list">
+        <div class="input-group">
+            <button class="sort" data-sort="contact-name">Sort by name</button>
+            <button class="sort" data-sort="contact-company">Sort by company</button>
+        </div>
+        <ul id="contact-list" class="list">
             {% for contact in contact_list %}
             <li><a title="Edit details for {{ contact.get('first_name') }} {{ contact.get('last_name') }} " href="/edit?email={{ contact.get('email_address') }}">
                 <span aria-label="Contact name" class="contact-name">{{ contact.get('first_name') }} {{ contact.get('last_name') }}</span>, <span aria-label="Contact's company name" class="contact-company">{{ contact.get('company_name') }}</span>
@@ -27,6 +34,7 @@
         <a id="add-contact" title="Add new contact" href="/edit"><em>Add new</em></a>
     </div>
     <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='list.min.js') }}"></script>
     <script>
         $('.delete-contact').on('click', function(){
             deletingContactName = $(this).closest('li').find('.contact-name').text();
@@ -40,11 +48,17 @@
                         console.log(result);                        
                     }
                 });
-                $(this).closest('li').fadeOut(function(){
+                $(this).closest('li').addClass('deleting').fadeOut(function(){
                     $(this).remove();
                 });
             }
         });
+        {% if contact_list %}
+        var sortOptions = {
+            valueNames: ['contact-name', 'contact-company']
+        };
+        var contactList = new List("contact-list-wrapper", sortOptions);
+        {% endif %}
     </script>
 </body>
 </html>

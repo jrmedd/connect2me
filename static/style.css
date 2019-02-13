@@ -48,6 +48,10 @@ a:hover {
     color: #2776C1;
 }
 
+.input-group {
+    width: 100%;
+}
+
 #contact-list-wrapper {
     display: flex;
     justify-content: flex-start;
@@ -60,6 +64,8 @@ a:hover {
 #contact-list {
     width: 100%;
     padding: 0;
+    padding-top: 2em;
+    border-top: 1px solid #dddddd;
 }
 
 #contact-list li {
@@ -89,6 +95,10 @@ button, input[type="submit"] {
 
 .delete-contact:hover {
     background-color: #f0616f;
+}
+
+.deleting {
+    background: #f0616f;
 }
 
 #save-changes {

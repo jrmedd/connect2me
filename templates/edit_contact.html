@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Connect2Me – Edit contact</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?4">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?5">
 </head>
 <body>
     <div id="top-nav">
@@ -45,7 +45,7 @@
     <script>
         var contactInfo = {{ contact_info | tojson }};
         if (contactInfo) {
-            $("#card").attr('href', '/svg?id='+contactInfo._id);
+            $("#card").attr('href', `/svg?id=${contactInfo._id}`);
             $("#object-id").val(contactInfo._id);
             $('#first-name').val(contactInfo.first_name);
             $('#last-name').val(contactInfo.last_name);

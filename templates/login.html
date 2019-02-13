@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Connect2Me – Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?4">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?5">
 </head>
 <body>
+    <div id="top-nav">
+        <h1>Connect2Me – Login</h1>
+    </div>
     <div id="login-form">
         <form name="login-form" method="POST">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required="required" />
+            <input type="text" id="username" name="username" required="required" value="{{ username }}" />
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required="required" />
             <input type="submit" value="Login" />

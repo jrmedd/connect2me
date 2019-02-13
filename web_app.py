@@ -44,7 +44,6 @@ def create_card(first_name, last_name, role, company_name, email_address, phone_
     contact.fn.value = "%s %s" % (first_name, last_name)
     contact.add('title')
     contact.title.value = role
-    # Sort out role format
     contact.add('org')
     contact.org.value = company_name
     contact.add('email')
@@ -123,6 +122,11 @@ def login(username=""):
                 session.update({'username': username})
                 return redirect(request.args.get('next') or url_for('index'))
     return render_template('login.html', username=username)
+
+@APP.route('/logout', methods=['GET'])
+def logout():
+    session.pop('username')
+    return redirect(url_for('login'))
 
 @APP.route('/svg')
 @login_required

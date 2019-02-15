@@ -111,7 +111,7 @@ def edit():
     return render_template('edit_contact.html', contact_info=editing_contact, qr_code=qr_code)
 
 @APP.route('/login', methods=['GET', 'POST'])
-def login(username=""):
+def login(username="", error=None):
     if request.method == 'POST':
         username = request.form.get('username')
         user_info = LOGINS.find_one({'username': username}, {'password': 1})
@@ -121,7 +121,11 @@ def login(username=""):
             if allow:
                 session.update({'username': username})
                 return redirect(request.args.get('next') or url_for('index'))
-    return render_template('login.html', username=username)
+            else:
+                error = "Incorrect password"
+        else:
+            error = "Unknown user"
+    return render_template('login.html', username=username, error=error)
 
 @APP.route('/logout', methods=['GET'])
 def logout():

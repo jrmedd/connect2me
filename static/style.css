@@ -97,7 +97,7 @@ button, input[type="submit"] {
     background-color: #f0616f;
 }
 
-.deleting {
+.error, .deleting {
     background: #f0616f;
 }
 

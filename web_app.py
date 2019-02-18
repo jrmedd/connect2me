@@ -98,7 +98,7 @@ def remove(contact_id):
 @APP.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
-    editing_contact = CONTACTS.find_one({'email_address': request.args.get('email')})
+    editing_contact = CONTACTS.find_one({'email_address': request.args.get('email'), 'org':session.get('org')})
     if editing_contact:
         editing_contact.update({'_id': str(editing_contact.pop('_id'))})
         qr_code = create_qr_code(url_for('download', _external=True), editing_contact.get('_id'))

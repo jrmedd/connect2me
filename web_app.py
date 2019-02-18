@@ -58,7 +58,8 @@ def create_card(first_name, last_name, role, company_name, email_address, phone_
 @APP.route('/')
 @login_required
 def index():
-    all_contacts = list(CONTACTS.find().sort('last_name', 1))
+    print(session)
+    all_contacts = list(CONTACTS.find({'org':session.get('org')}).sort('last_name', 1))
     for contact in all_contacts:
         contact.update({'_id':str(contact.get('_id'))})
     return render_template('index.html', contact_list=all_contacts)
@@ -106,6 +107,7 @@ def edit():
         qr_code = None
     if request.method == "POST":
         contact_form = request.form.to_dict()
+        contact_form.update({'org':session.get('org')})
         CONTACTS.replace_one({'_id':ObjectId(contact_form.pop('_id') or None)}, contact_form, upsert=True)
         return redirect(url_for('edit', email=contact_form.get('email_address')))
     return render_template('edit_contact.html', contact_info=editing_contact, qr_code=qr_code)
@@ -114,12 +116,12 @@ def edit():
 def login(username="", error=None):
     if request.method == 'POST':
         username = request.form.get('username')
-        user_info = LOGINS.find_one({'username': username}, {'password': 1})
+        user_info = LOGINS.find_one({'username': username})
         if user_info:
             hash = user_info.get('password')
             allow = pbkdf2_sha256.verify(request.form.get('password'), hash)
             if allow:
-                session.update({'username': username})
+                session.update({'username': username, 'org': user_info.get('org')})
                 return redirect(request.args.get('next') or url_for('index'))
             else:
                 error = "Incorrect password"

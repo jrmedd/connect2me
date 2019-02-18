@@ -92,7 +92,7 @@ def download():
 @APP.route('/remove/<contact_id>', methods=['DELETE'])
 @login_required
 def remove(contact_id):
-    CONTACTS.delete_one({'_id':ObjectId(contact_id)})
+    CONTACTS.delete_one({'_id':ObjectId(contact_id), 'org':session.get('org')})
     return jsonify(deleted=contact_id)
 
 @APP.route('/edit', methods=['GET', 'POST'])

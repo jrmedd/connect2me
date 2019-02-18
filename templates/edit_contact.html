@@ -36,7 +36,7 @@
             <input type="submit" id="save-changes" value="Save changes">
         </form>
         {% if qr_code != None %}
-         <a title="Click to download SVG" id="card" href="#">
+         <a id="business-card-download" title="Click to download SVG" id="card" href="#">
             {{ qr_code | safe }}
         </a>
         {% endif %}

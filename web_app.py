@@ -45,7 +45,7 @@ def create_card(first_name, last_name, role, company_name, email_address, phone_
     contact.add('title')
     contact.title.value = role
     contact.add('org')
-    contact.org.value = company_name
+    contact.org.value = [company_name]
     contact.add('email')
     contact.email.value = email_address
     contact.email.type_param = 'INTERNET'

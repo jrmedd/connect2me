@@ -58,7 +58,6 @@ def create_card(first_name, last_name, role, company_name, email_address, phone_
 @APP.route('/')
 @login_required
 def index():
-    print(session)
     all_contacts = list(CONTACTS.find({'org':session.get('org')}).sort('last_name', 1))
     for contact in all_contacts:
         contact.update({'_id':str(contact.get('_id'))})
@@ -139,7 +138,7 @@ def logout():
 def svg_card_creator():
     download_id = request.args.get('id')
     if download_id and ObjectId.is_valid(download_id):
-        found_contact = CONTACTS.find_one({'_id': ObjectId(download_id)})
+        found_contact = CONTACTS.find_one({'_id': ObjectId(download_id), 'org':session.get('org')})
     else:
         return "No contact"
     full_name = "%s %s" % (found_contact.get('first_name'), found_contact.get('last_name'))
@@ -155,7 +154,7 @@ def svg_card_creator():
         svg_file = Template(f.read())
     formatted_svg = svg_file.safe_substitute(name=full_name, email=email_address, role=role, company_name=company_name, telephone=phone_number, qr=qr_code)
     formatted_pdf = cairosvg.svg2pdf(bytestring=formatted_svg.encode('utf-8'), scale=1.3333)
-    return Response(formatted_pdf, mimetype='application/pdf', headers={"Content-Disposition": "attachment;filename=%s.pdf" % (full_name)})
+    return Response(formatted_pdf, mimetype='application/pdf', headers={"Content-Disposition": "attachment;filename=%s.pdf" % (full_name.replace(' ','_'))})
 
 def create_qr_code(download_url, tenant_id):
     qr_code = qrcodegen.QrCode.encode_text("%s?id=%s" % (download_url, tenant_id), qrcodegen.QrCode.Ecc.MEDIUM)

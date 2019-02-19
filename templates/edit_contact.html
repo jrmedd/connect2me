@@ -45,7 +45,7 @@
     <script>
         var contactInfo = {{ contact_info | tojson }};
         if (contactInfo) {
-            $("#card").attr('href', `/svg?id=${contactInfo._id}`);
+            $("#business-card-download").attr('href', `/svg?id=${contactInfo._id}`);
             $("#object-id").val(contactInfo._id);
             $('#first-name').val(contactInfo.first_name);
             $('#last-name').val(contactInfo.last_name);

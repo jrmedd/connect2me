@@ -6,7 +6,7 @@
     <title>Connect2Me – Contact List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='style.css') }}?5" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='style.css') }}?7" />
 </head>
 <body>
     <div id="top-nav">
@@ -15,7 +15,7 @@
     </div>
     <div id="contact-list-wrapper">
         {% if contact_list %}
-            <p>Click on a contact's name to edit their details.</p>
+        <p>Click on a contact's name to edit their details, filter and sort using the options below, or <a title="Add a new contact" href="/edit"><em>add a new contact</em></a>.</p>
             <div class="input-group">
                 <label for="search"><em>Filter by name or company:</em></label><input id="search" name="search" class="search" />
             </div>

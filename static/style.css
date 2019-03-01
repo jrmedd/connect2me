@@ -1,12 +1,105 @@
-@import url('https://fonts.googleapis.com/css?family=Muli');
+@import url('https://fonts.googleapis.com/css?family=Amaranth|Titillium+Web');
 
 body {
-    font-family: 'Muli', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     margin: 0;
     padding: 0;
 }
 
-#top-nav {
+:root {
+    --body-text-colour: #2d2d2d;
+    --header-text-colour: #3d3d3d;
+    --label-text-colour: #4d4d4d;
+    --header-colour: #ffffff;
+    --border-colour: #dddddd;
+    --button-text-colour: #ffffff;
+    --primary-colour: #1e90ff;
+    --secondary-colour: #7d7d9d;
+    --confirm-colour: #64c52b;
+    --danger-colour: #f0616f;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Amaranth', sans-serif;
+    color: var(--header-text-colour);
+}
+
+p {
+    color: var(--body-text-colour);
+}
+
+label {
+    color: var(--label-text-colour);
+}
+
+form {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    margin-bottom: 1em;
+    font-size: 1em;
+    border: 1px solid var(--border-colour);
+    border-radius: .25em;
+}
+
+a {
+    color: var(--primary-colour);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover,
+.btn:hover {
+    filter: brightness(125%);
+}
+
+a:active,
+.btn:active {
+    filter: brightness(75%);
+}
+
+.btn {
+    font-size: 1em;
+    line-height: 1em;
+    vertical-align: middle;
+    padding: .375em .75em;
+    border-radius: .25em;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary-colour);
+    color: var(--button-text-colour);
+}
+
+.btn-secondary {
+    background: var(--secondary-colour);
+    color: var(--button-text-colour);
+}
+
+.btn-confirm {
+    background: var(--confirm-colour);
+    color: var(--button-text-colour);
+}
+
+.btn-danger {
+    background: var(--danger-colour);
+    color: var(--button-text-colour);
+}
+
+.error {
+    background: var(--danger-colour);
+}
+
+#header {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -18,16 +111,16 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    border-bottom: 1px solid #dddddd;
+    background: var(--header-colour);
+    border-bottom: 1px solid var(--border-colour);
     margin-bottom: 1em;
     padding-left: .5em;
     padding-right: .5em;
 }
 
-
 #login-form,
-#contact-info,
-#contact-list-wrapper {
+#contact-list-wrapper,
+#contact-info {
     margin: 0 auto;
     width: 95%;
     max-width: 95%;
@@ -42,20 +135,16 @@ body {
     flex-wrap: wrap;
 }
 
+@media (min-width:801px) {
+    #login-form,
+    #contact-list-wrapper,
+    #contact-info {
+        width: 50%;
+    }
+}
+
 #contact-info {
     justify-content: center;
-}
-
-form {
-    width: 100%;
-}
-
-input {
-    width: 100%;
-    margin-bottom: 1em;
-    font-size: 1em;
-    border: 1px solid #5d5d5d;
-    border-radius: .25em;
 }
 
 svg {
@@ -63,29 +152,20 @@ svg {
     width: 100%;
 }
 
-a {
-    font-weight: bold;
-    text-decoration: none;
-    color: #5d5d5d;
-}
-
-a:hover {
-    color: #2776C1;
-}
 
 .input-group {
     width: 100%;
 }
 
 #add-contact {
-
+    padding-bottom: 2em;
 }
 
 #contact-list {
     width: 100%;
     padding: 0;
     padding-top: 2em;
-    border-top: 1px solid #dddddd;
+    border-top: 1px solid var(--border-colour);
 }
 
 #contact-list li {
@@ -96,45 +176,11 @@ a:hover {
     -ms-flex-pack: justify;
     justify-content: space-between;
     list-style-type: none;
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid var(--border-colour);
     margin-bottom: 2em;
     padding-bottom: 1em;
 }
 
-button,
-input[type="submit"] {
-    font-size: 1em;
-    line-height: 1em;
-    vertical-align: middle;
-    padding: .375em .75em;
-    border-radius: .25em;
-    cursor: pointer;
-}
-
 .delete-contact {
     float: right;
-    color: #ffffff;
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
-.delete-contact:hover {
-    background-color: #f0616f;
-}
-
-.error,
-.deleting {
-    background: #f0616f;
-}
-
-#save-changes {
-    color: #ffffff;
-    background-color: #64c52b;
-    border-color: #64c52b;
-}
-
-#save-changes:hover {
-    color: #ffffff;
-    background-color: #95e766;
-    border-color: #95e766;
 }

@@ -6,13 +6,13 @@
     <title>Connect2Me – Contact List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='style.css') }}?7" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='style.css') }}?8" />
 </head>
 <body>
-    <div id="top-nav">
+    <header id="header">
         <h1>Contact list</h1>
-        <a title="Logout" href="logout">Log out</a>
-    </div>
+        <a title="Logout" href="logout">Logout</a>
+    </header>
     <div id="contact-list-wrapper">
         {% if contact_list %}
         <p>Click on a contact's name to edit their details, filter and sort using the options below, or <a title="Add a new contact" href="/edit"><em>add a new contact</em></a>.</p>
@@ -20,16 +20,19 @@
                 <label for="search"><em>Filter by name or company:</em></label><input id="search" name="search" class="search" />
             </div>
             <div class="input-group">
-                <button class="sort" data-sort="contact-name">Sort by name</button>
-                <button class="sort" data-sort="contact-company">Sort by company</button>
+                <button class="btn btn-secondary sort" data-sort="contact-name">Sort by name</button>
+                <button class="btn btn-secondary sort" data-sort="contact-company">Sort by company</button>
             </div>
         {% endif %}
         <ul aria-label="List of contacts and their companies" id="contact-list" class="list">
             {% for contact in contact_list %}
-            <li><a title="Edit details for {{ contact.get('first_name') }} {{ contact.get('last_name') }} " href="/edit?email={{ contact.get('email_address') }}">
-                <span class="contact-name">{{ contact.get('first_name') }} {{ contact.get('last_name') }}</span>, <span class="contact-company">{{ contact.get('company_name') }}</span>
+            {% set full_name = contact.get('first_name') + ' ' + contact.get('last_name') %}
+            {% set email_address = contact.get('email_address') %}
+            {% set company_name = contact.get('company_name') %}
+            <li><a title="Edit details for {{ full_name }} " href="/edit?email={{ email_address }}">
+                <span class="contact-name">{{ full_name }}</span>, <span class="contact-company">{{ company_name }}</span>
             </a> 
-            <button title="Delete {{ contact.get('first_name') }} {{ contact.get('last_name') }}'s details" data-contact-id="{{ contact.get('_id') }}" class="delete-contact">Delete</button></li>
+            <button title="Delete {{ full_name }}'s details" data-contact-id="{{ contact.get('_id') }}" class="btn btn-danger delete-contact">Delete</button></li>
             {% endfor %}
         </ul>
         <a id="add-contact" title="Add new contact" href="/edit"><em>Add new contact</em></a>
@@ -55,10 +58,10 @@
             }
         });
         {% if contact_list %}
-            var sortOptions = {
-                valueNames: ['contact-name', 'contact-company']
-            };
-            var contactList = new List("contact-list-wrapper", sortOptions);
+        var sortOptions = {
+            valueNames: ['contact-name', 'contact-company']
+        };
+        var contactList = new List("contact-list-wrapper", sortOptions);
         {% endif %}
     </script>
 </body>

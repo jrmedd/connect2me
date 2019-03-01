@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ "Error: " + error + " – " if error }} Connect2Me – Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?7">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?8">
 </head>
 <body>
-    <div id="top-nav">
+    <header id="header">
         <h1>Connect2Me – Login</h1>
-    </div>
+    </header>
     <div id="login-form">
         {% if error %}
             <p class="error">{{ error }}</p>
@@ -20,7 +20,7 @@
             <input type="text" id="username" name="username" required="required" value="{{ username }}" />
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required="required" />
-            <input type="submit" value="Login" />
+            <input type="submit" class="btn btn-primary" value="Login" />
         </form>
     </div>
 </body>

@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Connect2Me – Edit contact</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?7">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?8">
 </head>
 <body>
-    <div id="top-nav">
+    <header id="header">
         <h1>Contact details</h1>
         <a href="/">Home</a>
-    </div>
+    </header>
     <div id="contact-info">
         <form name="contact-info" method="POST">
             <input type="hidden" id="object-id" name="_id" />
@@ -33,7 +33,7 @@
             
             <label for="phone-number">Phone number</label>
             <input type="tel" id="phone-number" name="phone_number" />
-            <input type="submit" id="save-changes" value="Save changes">
+            <input type="submit" class="btn btn-confirm" id="save-changes" value="Save changes">
         </form>
         {% if qr_code != None %}
          <a id="business-card-download" title="Click to download SVG" id="card" href="#">
